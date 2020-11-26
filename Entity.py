@@ -88,7 +88,7 @@ def reach_the_exit(entity , exit):
 
 #####################################################################################################
 #1
-
+R_k_matrix=[]
 class Entity:
     def __init__(self, r):
         self.e = [0,0]
@@ -112,7 +112,7 @@ class Entity:
         self.r = [self.r[0]+self.v[0]*0.01, self.r[1]+self.v[1]*0.01]
 
 
-def simulate_one_entity(entity, exit,dict):
+def simulate_one_entity(entity, exit):
     k=0
     v = []
     r = []
@@ -136,7 +136,7 @@ def simulate_one_entity(entity, exit,dict):
     v.append(entity.v)
     r.append(entity.r)
     print("my k is:"+str(k))
-    result=set(zip(k_array,r))
+    # result=set(zip(k_array,r))
     # for i in result:
     #     if i in dict:
     #         dict[i]=dict[i]+1
@@ -144,15 +144,16 @@ def simulate_one_entity(entity, exit,dict):
     #         dist=i[1]
     #         if i[0]
     #         dict[i]=1
-
-    # print(v)
+    R_k_matrix.append(r)
+    print(v)
     # print(r)
-    return k,plot_x,plot_y,k_array,plot_x_v,plot_y_v
+    return k,plot_x,plot_y,k_array,plot_x_v,plot_y_v,R_k_matrix
 # # #A
 # exit = [15,15/2]
 # entity = Entity([15/2, 15/2])
 # k,plot_x,plot_y,k_array,plot_x_v,plot_y_v = simulate_one_entity(entity, exit)
 # print("time:"+str(k))
+
 #
 #
 #
@@ -193,6 +194,26 @@ def simulate_one_entity(entity, exit,dict):
 # plt.show()
 
 
+# c
+def getCol(R_K_matrix):
+    counterCol = 0
+
+    for i in range(len(R_K_matrix)):
+        j = i + 1
+        for j in range(len(R_K_matrix)):
+            array_i = R_k_matrix[i]
+            array_j = R_k_matrix[j]
+            min_len_array = min(len(array_i), len(array_j))
+            k = 0
+
+            while k < min_len_array:
+                if abs(array_i[k][0] - array_j[k][0]) <= 0.5 or abs(array_i[k][1] - array_j[k][1]) <= 0.5:
+                    counterCol = counterCol + 1
+                k = k + 1
+                print(str(k))
+
+    return counterCol
+
 #B
 dict={}
 np.random.seed(0)
@@ -203,12 +224,17 @@ k_array = []
 exit = [15,15/2]
 for i in range(200):
     entity = Entity([random0[i],random1[i]])
-    k, plot_x, plot_y, k_array_from_fun, plot_x_v, plot_y_v=simulate_one_entity(entity,exit)
-    print("apennded k:"+str(k))
+    k, plot_x, plot_y, k_array_from_fun, plot_x_v, plot_y_v,R_k_matrix=simulate_one_entity(entity,exit)
+    # print("apennded k:"+str(k))
     k_array.append(k)
-print(k_array)
-print(max(k_array))
-print(best_fit_distribution(k_array))
+
+print("total collision" + str(getCol(R_k_matrix)))
+# print(k_array)
+# print(max(k_array))
+# print(best_fit_distribution(k_array))
+
+
+
 
 
 
