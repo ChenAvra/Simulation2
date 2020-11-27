@@ -135,17 +135,10 @@ def simulate_one_entity(entity, exit):
         k = k + 1
     v.append(entity.v)
     r.append(entity.r)
-    print("my k is:"+str(k))
-    # result=set(zip(k_array,r))
-    # for i in result:
-    #     if i in dict:
-    #         dict[i]=dict[i]+1
-    #     else:
-    #         dist=i[1]
-    #         if i[0]
-    #         dict[i]=1
+    # print("my k is:"+str(k))
+
     R_k_matrix.append(r)
-    print(v)
+    # print(v)
     # print(r)
     return k,plot_x,plot_y,k_array,plot_x_v,plot_y_v,R_k_matrix
 # # #A
@@ -207,7 +200,12 @@ def getCol(R_K_matrix):
             k = 0
 
             while k < min_len_array:
-                if abs(array_i[k][0] - array_j[k][0]) <= 0.5 or abs(array_i[k][1] - array_j[k][1]) <= 0.5:
+                temp1=pow(array_i[k][0] - array_j[k][0],2)
+                temp2=pow(array_i[k][1] - array_j[k][1],2)
+                sub=temp1+temp2
+                squrt_result= np.math.sqrt(sub)
+                # if abs(array_i[k][0] - array_j[k][0]) <= 0.5 or abs(array_i[k][1] - array_j[k][1]) <= 0.5:
+                if squrt_result<=0.5:
                     counterCol = counterCol + 1
                 k = k + 1
                 print(str(k))
