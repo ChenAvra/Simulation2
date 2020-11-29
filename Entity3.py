@@ -65,7 +65,8 @@ def get_distance_from_exit_two_doors(entity):
 
 def is_legal_move_two_doors(entity, q):
     for e in q:
-        if abs(entity.r[0]-e.r[0])<0.5 or abs(entity.r[1]-e.r[1])<0.5:
+        if ((entity.r[0]-e.r[0])**2 + (entity.r[1]-e.r[1])**2 )**0.5 < 0.5:
+        # if abs(entity.r[0]-e.r[0])<0.5 or abs(entity.r[1]-e.r[1])<0.5:
             return False
     return True
 
